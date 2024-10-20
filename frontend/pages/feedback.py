@@ -1,5 +1,8 @@
 import streamlit as st
 import requests
+import os
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://backend:5000")
 
 def submit_feedback():
     st.title("Submit Feedback")
@@ -10,7 +13,7 @@ def submit_feedback():
 
     if st.button("Submit Feedback"):
         if user_feedback:
-            response = requests.post("http://backend:5000/api/feedback", json={
+            response = requests.post(f"{BACKEND_URL}/api/feedback", json={
                 "agent_id": agent_id,
                 "user_feedback": user_feedback
             })
@@ -31,11 +34,10 @@ def submit_feedback():
         st.info("No feedback available for this agent yet.")
 
 def get_recent_feedback(agent_id):
-    response = requests.get(f"http://backend:5000/api/feedback?agent_id={agent_id}")
+    response = requests.get(f"{BACKEND_URL}/api/feedback?agent_id={agent_id}")
     if response.status_code == 200:
         return response.json()
     return []
 
-# Call the function to render the feedback submission form
 if __name__ == "__main__":
     submit_feedback()
