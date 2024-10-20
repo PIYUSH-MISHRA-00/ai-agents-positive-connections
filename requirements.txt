@@ -2,6 +2,7 @@ Flask
 Flask-SQLAlchemy
 Flask-Migrate
 Flask-WTF
+flask_pymongo
 WTForms
 Flask-Login
 requests
