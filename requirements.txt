@@ -6,4 +6,7 @@ WTForms
 Flask-Login
 requests
 streamlit
+pymongo
+gunicorn
+
 
