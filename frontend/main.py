@@ -1,19 +1,32 @@
 import streamlit as st
-import requests
+from pages import feedback, matchmaking
+
+# Set the page configuration
+st.set_page_config(
+    page_title="AI Agent Matchmaking",
+    page_icon="🤖",
+    layout="wide",
+)
 
 def main():
-    st.title("Agent Matchmaking Platform")
+    st.title("AI-Driven Agent Matchmaking Platform")
+    st.markdown(
+        """
+        Welcome to the **AI Agent Matchmaking Platform**! 🎉  
+        This platform connects you with agents based on your preferences and feedback.  
+        Choose an option from the sidebar to get started.
+        """
+    )
 
-    if st.button("Fetch Agents"):
-        response = requests.get("http://localhost:5000/api/agents")  # Adjust the URL if necessary
-        if response.status_code == 200:
-            agents = response.json()
-            st.write(agents)
-        else:
-            st.error("Error fetching agents.")
+    # Sidebar navigation
+    st.sidebar.title("Navigation")
+    options = ["Matchmaking", "Submit Feedback"]
+    choice = st.sidebar.radio("Select an option:", options)
 
-    if st.button("Show Feedback Form"):
-        st.experimental_set_query_params(page="feedback")
+    if choice == "Matchmaking":
+        matchmaking.matchmaking()
+    elif choice == "Submit Feedback":
+        feedback.submit_feedback()
 
 if __name__ == "__main__":
     main()
