@@ -1,11 +1,19 @@
-from models.user_model import User
 from models.agent_model import Agent
-from config import db
+from models.feedback_model import Feedback
 
-def match_user_with_agents(user_id):
-    user = User.query.get(user_id)
-    if user:
-        agents = Agent.query.all()
-        matched_agents = [agent for agent in agents if any(expertise in user.interests for expertise in agent.expertise.split(','))]
-        return matched_agents
-    return []
+class MatchService:
+    def __init__(self, db_session):
+        self.db_session = db_session
+
+    def match_agent(self, user_id):
+        # Example logic to match an agent based on user feedback
+        feedbacks = self.db_session.query(Feedback).filter_by(user_id=user_id).all()
+        if not feedbacks:
+            return None  # No feedback found for user
+
+        agent_ids = [feedback.agent_id for feedback in feedbacks]
+        agents = self.db_session.query(Agent).filter(Agent.id.in_(agent_ids)).all()
+        return agents
+
+    def get_all_agents(self):
+        return self.db_session.query(Agent).all()

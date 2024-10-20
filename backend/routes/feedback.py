@@ -1,11 +1,12 @@
 from flask import Blueprint, request, jsonify
-from models.feedback_model import Feedback
+from models.feedback_model import Feedback, db
+from services.feedback_service import FeedbackService
 
-feedback_bp = Blueprint('feedback_bp', __name__)
+feedback_bp = Blueprint('feedback', __name__)
+feedback_service = FeedbackService(db.session)
 
-@feedback_bp.route('/', methods=['POST'])
+@feedback_bp.route('/api/feedback', methods=['POST'])
 def submit_feedback():
     data = request.json
-    feedback = Feedback(user_id=data['user_id'], agent_id=data['agent_id'], rating=data['rating'], comments=data['comments'])
-    feedback.save()
-    return jsonify({"message": "Feedback submitted successfully"})
+    feedback = feedback_service.submit_feedback(data['agent_id'], data['user_feedback'])
+    return jsonify(feedback.to_dict()), 201

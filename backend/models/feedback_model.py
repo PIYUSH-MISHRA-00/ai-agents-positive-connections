@@ -1,10 +1,15 @@
-from config import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)  # Assuming foreign key to User
-    agent_id = db.Column(db.Integer, nullable=False)  # Assuming foreign key to Agent
-    comment = db.Column(db.String(255), nullable=True)
+    agent_id = db.Column(db.Integer, db.ForeignKey('agent.id'), nullable=False)
+    user_feedback = db.Column(db.Text, nullable=False)
 
-    def __repr__(self):
-        return f"<Feedback {self.comment}>"
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "agent_id": self.agent_id,
+            "user_feedback": self.user_feedback
+        }

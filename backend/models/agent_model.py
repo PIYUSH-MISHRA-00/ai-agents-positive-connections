@@ -1,9 +1,15 @@
-from config import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Agent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    expertise = db.Column(db.String(255), nullable=True)
+    specialty = db.Column(db.String(100), nullable=False)
 
-    def __repr__(self):
-        return f"<Agent {self.name}>"
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "specialty": self.specialty
+        }

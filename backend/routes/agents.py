@@ -1,9 +1,11 @@
-from flask import Blueprint, request, jsonify
-from services.match_service import match_user_with_agents
+from flask import Blueprint, jsonify
+from models.agent_model import Agent, db
+from services.match_service import MatchService
 
-agent_bp = Blueprint('agent_bp', __name__)
+agents_bp = Blueprint('agents', __name__)
+match_service = MatchService(db.session)
 
-@agent_bp.route('/match/<user_id>', methods=['GET'])
-def match_user(user_id):
-    agents = match_user_with_agents(user_id)
-    return jsonify(agents)
+@agents_bp.route('/api/agents', methods=['GET'])
+def get_agents():
+    agents = match_service.get_all_agents()
+    return jsonify([agent.to_dict() for agent in agents]), 200

@@ -1,10 +1,19 @@
 import streamlit as st
-from pages import matchmaking, feedback
+import requests
 
-st.sidebar.title("AI Agents for Positive Connections")
-page = st.sidebar.selectbox("Choose a page", ["Matchmaking", "Feedback"])
+def main():
+    st.title("Agent Matchmaking Platform")
 
-if page == "Matchmaking":
-    matchmaking.show()
-elif page == "Feedback":
-    feedback.show()
+    if st.button("Fetch Agents"):
+        response = requests.get("http://localhost:5000/api/agents")  # Adjust the URL if necessary
+        if response.status_code == 200:
+            agents = response.json()
+            st.write(agents)
+        else:
+            st.error("Error fetching agents.")
+
+    if st.button("Show Feedback Form"):
+        st.experimental_set_query_params(page="feedback")
+
+if __name__ == "__main__":
+    main()
