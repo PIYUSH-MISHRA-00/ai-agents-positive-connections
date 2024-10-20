@@ -1,17 +1,10 @@
-from config import mongo
+from config import db
 
-class Feedback:
-    def __init__(self, user_id, agent_id, rating, comments):
-        self.user_id = user_id
-        self.agent_id = agent_id
-        self.rating = rating
-        self.comments = comments
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)  # Assuming foreign key to User
+    agent_id = db.Column(db.Integer, nullable=False)  # Assuming foreign key to Agent
+    comment = db.Column(db.String(255), nullable=True)
 
-    def save(self):
-        feedback = {
-            "user_id": self.user_id,
-            "agent_id": self.agent_id,
-            "rating": self.rating,
-            "comments": self.comments
-        }
-        return mongo.db.feedback.insert_one(feedback)
+    def __repr__(self):
+        return f"<Feedback {self.comment}>"

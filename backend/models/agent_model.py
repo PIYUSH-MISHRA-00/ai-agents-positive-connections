@@ -1,13 +1,9 @@
-from config import mongo
+from config import db
 
-class Agent:
-    def __init__(self, name, expertise):
-        self.name = name
-        self.expertise = expertise
+class Agent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    expertise = db.Column(db.String(255), nullable=True)
 
-    def save(self):
-        agent = {
-            "name": self.name,
-            "expertise": self.expertise
-        }
-        return mongo.db.agents.insert_one(agent)
+    def __repr__(self):
+        return f"<Agent {self.name}>"
