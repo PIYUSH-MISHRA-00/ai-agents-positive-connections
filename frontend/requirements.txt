@@ -1,0 +1,16 @@
+Flask
+flask-cors
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-WTF
+flask_pymongo
+WTForms
+Flask-Login
+requests
+streamlit
+pymongo
+gunicorn
+pytest
+
+
+
