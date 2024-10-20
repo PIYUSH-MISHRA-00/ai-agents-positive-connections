@@ -30,4 +30,5 @@ def matchmaking():
     )
 
 # Call the function to render the matchmaking page
-matchmaking()
+if __name__ == "__main__":
+    matchmaking()

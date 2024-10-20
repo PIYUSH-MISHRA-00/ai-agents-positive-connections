@@ -18,15 +18,15 @@ def main():
         """
     )
 
-    # Sidebar navigation
-    st.sidebar.title("Navigation")
-    options = ["Matchmaking", "Submit Feedback"]
-    choice = st.sidebar.radio("Select an option:", options)
+# Sidebar navigation
+st.sidebar.title("Navigation")
+options = ["Matchmaking", "Submit Feedback"]
+choice = st.sidebar.radio("Select an option:", options)
 
-    if choice == "Matchmaking":
-        matchmaking.matchmaking()
-    elif choice == "Submit Feedback":
-        feedback.submit_feedback()
+if choice == "Matchmaking":
+    matchmaking.matchmaking()  # Call matchmaking function
+elif choice == "Submit Feedback":
+    feedback.submit_feedback()  # Call feedback function
 
 if __name__ == "__main__":
     main()

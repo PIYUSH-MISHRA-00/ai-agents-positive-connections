@@ -37,4 +37,5 @@ def get_recent_feedback(agent_id):
     return []
 
 # Call the function to render the feedback submission form
-submit_feedback()
+if __name__ == "__main__":
+    submit_feedback()
