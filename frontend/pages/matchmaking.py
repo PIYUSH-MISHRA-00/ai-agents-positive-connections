@@ -6,7 +6,7 @@ def matchmaking():
     st.markdown("Click the button below to find agents that match your needs!")
 
     if st.button("Fetch Agents for Matchmaking"):
-        response = requests.get("http://localhost:5000/api/agents")
+        response = requests.get("http://backend:5000/api/agents")  # Update to backend service URL
         if response.status_code == 200:
             agents = response.json()
             if agents:
@@ -28,3 +28,6 @@ def matchmaking():
         3. Choose an agent and provide your feedback to help improve our services!
         """
     )
+
+# Call the function to render the matchmaking page
+matchmaking()

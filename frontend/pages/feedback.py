@@ -10,7 +10,7 @@ def submit_feedback():
 
     if st.button("Submit Feedback"):
         if user_feedback:
-            response = requests.post("http://localhost:5000/api/feedback", json={
+            response = requests.post("http://backend:5000/api/feedback", json={
                 "agent_id": agent_id,
                 "user_feedback": user_feedback
             })
@@ -31,7 +31,10 @@ def submit_feedback():
         st.info("No feedback available for this agent yet.")
 
 def get_recent_feedback(agent_id):
-    response = requests.get(f"http://localhost:5000/api/feedback?agent_id={agent_id}")
+    response = requests.get(f"http://backend:5000/api/feedback?agent_id={agent_id}")
     if response.status_code == 200:
         return response.json()
     return []
+
+# Call the function to render the feedback submission form
+submit_feedback()
