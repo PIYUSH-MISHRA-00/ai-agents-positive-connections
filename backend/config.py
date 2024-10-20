@@ -1,7 +1,12 @@
-from flask_pymongo import PyMongo
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-mongo = PyMongo()
+app = Flask(__name__)
 
-def initialize_db(app):
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/ai_agents"
-    mongo.init_app(app)
+# Configure SQLite
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "database.db")}'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
