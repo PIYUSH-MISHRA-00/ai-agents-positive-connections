@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from app import db
 
 class Agent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -9,7 +7,7 @@ class Agent(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
-            "name": self.name,
-            "specialty": self.specialty
+            'id': self.id,
+            'name': self.name,
+            'specialty': self.specialty
         }

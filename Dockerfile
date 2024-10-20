@@ -14,8 +14,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend ./backend
 COPY frontend ./frontend
 
-# Expose the ports
+# Expose the ports for Flask and Streamlit
 EXPOSE 5000 8501
+
+# Install Streamlit globally to ensure it's accessible
+RUN pip install streamlit
 
 # Command to run the application
 CMD ["sh", "-c", "python ./backend/app.py & streamlit run ./frontend/main.py --server.port 8501 --server.address 0.0.0.0"]
