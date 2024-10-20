@@ -21,4 +21,4 @@ EXPOSE 5000 8501
 RUN pip install streamlit
 
 # Command to run the application
-CMD ["sh", "-c", "python ./backend/app.py & streamlit run ./frontend/main.py --server.port 8501 --server.address 0.0.0.0"]
+CMD ["sh", "-c", "gunicorn backend.app:app & streamlit run frontend/main.py --server.port 8501 --server.address 0.0.0.0"]
